@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
-import { Alert, Button, Col, Container, Grid, Icon, Panel, Row } from 'rsuite';
+import { Container, Grid, Row, Panel, Col, Button, Icon, Alert } from 'rsuite';
 import { auth, database } from '../misc/firebase';
 
 function SignIn() {
@@ -36,19 +36,17 @@ function SignIn() {
           <Col xs={24} md={12} mdOffset={6}>
             <Panel>
               <div className="text-center">
-                <h2>Welcome to chat</h2>
-                <p>progressive chat platform for neophytes</p>
+                <h2>Welcome to Chat</h2>
+                <p>Progressive chat platform for neophytes</p>
               </div>
 
               <div className="mt-3">
                 <Button block color="blue" onClick={onFacebookSignIn}>
                   <Icon icon="facebook" /> Continue with Facebook
                 </Button>
-              </div>
 
-              <div className="mt-1">
                 <Button block color="green" onClick={onGoogleSignIn}>
-                  <Icon icon="Google" /> Continue with google
+                  <Icon icon="google" /> Continue with Google
                 </Button>
               </div>
             </Panel>
