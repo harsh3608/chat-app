@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Modal, Button, Alert } from 'rsuite';
 import AvatarEditor from 'react-avatar-editor';
 import { useModalState } from '../../misc/custom-hooks';
+import { storage, database } from '../../misc/firebase';
 import { useProfile } from '../../context/profile.context';
-import { database, storage } from '../../misc/firebase';
+import ProfileAvatar from '../ProfileAvatar';
 
 const fileInputTypes = '.png, .jpeg, .jpg';
 
@@ -26,11 +27,8 @@ function AvatarUploadBtn() {
   const { isOpen, open, close } = useModalState();
 
   const { profile } = useProfile();
-
   const [img, setImg] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
-
   const avatarEditorRef = useRef();
 
   const onFileInputChange = ev => {
@@ -55,9 +53,11 @@ function AvatarUploadBtn() {
     setIsLoading(true);
     try {
       const blob = await getBlob(canvas);
+
       const avatarFileRef = storage
         .ref(`/profile/${profile.uid}`)
         .child('avatar');
+
       const uploadAvatarResult = await avatarFileRef.put(blob, {
         cacheControl: `public, max-age=${3600 * 24 * 3}`,
       });
@@ -80,6 +80,12 @@ function AvatarUploadBtn() {
 
   return (
     <div className="mt-3 text-center">
+      <ProfileAvatar
+        src={profile.avatar}
+        name={profile.name}
+        className="width-200 height-200 img-fullsize font-huge"
+      />
+
       <div>
         <label
           htmlFor="avatar-upload"
